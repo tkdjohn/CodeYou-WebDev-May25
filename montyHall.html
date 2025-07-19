@@ -24,9 +24,9 @@
         <p id="instructions">Choose a door: 1, 2, or 3</p>
         <table id="doorsTable">
             <tr>
-                <td id="door1" class="door"><button id="btnDoor1" onclick="chooseDoor(1)">Door 1</button></td>
-                <td id="door2" class="door"><button id="btnDoor2" onclick="chooseDoor(2)">Door 2</button></td>
-                <td id="door3" class="door"><button id="btnDoor3" onclick="chooseDoor(3)">Door 3</button></td>
+                <td id="door1"><button id="btnDoor1" class="doors" onclick="chooseDoor(1)">Door 1</button></td>
+                <td id="door2"><button id="btnDoor2" class="doors" onclick="chooseDoor(2)">Door 2</button></td>
+                <td id="door3"><button id="btnDoor3" class="doors" onclick="chooseDoor(3)">Door 3</button></td>
             </tr>
             <tr>
                 <td id="door1Content" class="doorContent"></td>
@@ -34,13 +34,14 @@
                 <td id="door3Content" class="doorContent"></td>
             </tr>
         </table>
-        <h2 style="visibility: hidden;">
-            <div id="win" style="visibility: hidden;">You won a car!</div>
-            <div id="lose" style="visibility: hidden;">You won a goat!</div>
+        <h2>
+            <div id="win" style="display: none;">You won a car!</div>
+            <div id="lose" style="display: none;">You won a goat!</div>
         </h2>
     </div>
     <div id="statistics" style="display: none;">
         <h2>Statistics</h2>
+        <p>According to statistics, you have a better chance of winning the car if you switch doors after the host reveals a goat.</p>  
         <p>Total Games Played: <span id="totalGames">0</span></p>
         <table>
             <tr>
