@@ -21,43 +21,47 @@
     <hr>
     <button id="btnStart" onclick="playNow()">Let's Play!</button>
     <div id="playField" style="display: none;">
-        <p id="instructions">Choose a door: 1, 2, or 3</p>
+        <div id="instructions">
+            <p id="instructions1"></p>
+            <p id="instructions2"></p>
+            <p id="winLose"></p>
+        </div>
         <table id="doorsTable">
             <tr>
-                <td id="door1"><button id="btnDoor1" class="doors" onclick="chooseDoor(1)">Door 1</button></td>
-                <td id="door2"><button id="btnDoor2" class="doors" onclick="chooseDoor(2)">Door 2</button></td>
-                <td id="door3"><button id="btnDoor3" class="doors" onclick="chooseDoor(3)">Door 3</button></td>
+                <th>Door 1</th>
+                <th>Door 2</th>
+                <th>Door 3</th>
             </tr>
             <tr>
-                <td id="door1Content" class="doorContent"></td>
-                <td id="door2Content" class="doorContent"></td>
-                <td id="door3Content" class="doorContent"></td>
+                <td id="door1" class="doors" onclick="chooseDoor(1)"></td>
+                <td id="door2" class="doors" onclick="chooseDoor(2)"></td>
+                <td id="door3" class="doors" onclick="chooseDoor(3)"></td>
             </tr>
         </table>
-        <h2>
-            <div id="win" style="display: none;">You won a car!</div>
-            <div id="lose" style="display: none;">You won a goat!</div>
-        </h2>
+
     </div>
     <div id="statistics" style="display: none;">
         <h2>Statistics</h2>
-        <p>According to statistics, you have a better chance of winning the car if you switch doors after the host reveals a goat.</p>  
+        <p>According to the laws of probability, you have a better chance of winning the car if you switch doors after the host reveals a goat.</p>
         <p>Total Games Played: <span id="totalGames">0</span></p>
         <table>
             <tr>
                 <th>Choice</th>
                 <th>Wins</th>
+                <th>Total</th>
                 <th>Win %</th>
             </tr>
             <tr>
                 <td>Sticking</td>
-                <td id="winsSticking">0</td>
-                <td id="winPercentSticking">0%</td>
+                <td id="totalStickWins">0</td>
+                <td id="totalStickGames">0</td>
+                <td id="winPercentageStick">0%</td>
             </tr>
             <tr>
                 <td>Switching</td>
-                <td id="winsSwitching">0</td>
-                <td id="winPercentSwitching">0%</td>
+                <td id="totalSwitchWins">0</td>
+                <td id="totalSwitchGames">0</td>
+                <td id="winPercentageSwitch">0%</td>
             </tr>
         </table>
     </div>
