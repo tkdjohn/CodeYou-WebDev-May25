@@ -120,6 +120,7 @@ function updateStatistics() {
     document.getElementById("totalSwitchWins").textContent = totalSwitchWins;
     document.getElementById("totalStickGames").textContent = totalStickGames;
     document.getElementById("totalSwitchGames").textContent = totalSwitchGames;
-    document.getElementById("winPercentageStick").textContent = winPercentageStick.toFixed(2) + "%";
-    document.getElementById("winPercentageSwitch").textContent = winPercentageSwitch.toFixed(2) + "%";
+    document.getElementById("winPercentageStick").textContent = winPercentageStick.toFixed(1) + "%";
+    document.getElementById("winPercentageSwitch").textContent = winPercentageSwitch.toFixed(1) + "%";
+    document.getElementById("overallWinPercentage").textContent = (totalWins / totalGames * 100 || 0).toFixed(1) + "%";
 }
