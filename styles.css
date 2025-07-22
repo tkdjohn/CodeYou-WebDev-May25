@@ -70,18 +70,16 @@ table {
     text-align: center;
 }
 .car {
-    color: rgb(47, 255, 85);
+    color: rgb(18, 174, 47);
+}
+.revealed {
+    color: darkred;
+}
+.car, .revealed {
     background-color: gray;
     font-weight: bold;
     pointer-events: none; /* Disable interaction */
 }
-.revealed {
-    color: red;
-    background-color: gray;
-    font-weight: bold;
-    pointer-events: none; /* Disable interaction */;
-}
-
 #idselector {
     color: darkblue;
     font-weight: bold;
