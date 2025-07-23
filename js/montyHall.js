@@ -51,9 +51,7 @@ function chooseDoor(doorNumber) {
         makeSecondChoice(doorNumber);
     }
 }
-//TODO: update door button text content to show the car or goat
-// save game results in local storage
-// load local storage and display statistics
+
 function makeFirstChoice(doorNumber) {
     choice1 = doorNumber; // First choice
     console.log(`First choice is door number ${choice1}`);
