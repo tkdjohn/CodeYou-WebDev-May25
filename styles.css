@@ -56,7 +56,7 @@ table {
 
     /* selected link */
     a:active {
-        color: blue;
+        color: rgb(37, 37, 109);
     }
 }
 .doors {
@@ -81,6 +81,6 @@ table {
     pointer-events: none; /* Disable interaction */
 }
 #idselector {
-    color: darkblue;
+    color: rgb(90, 90, 216);
     font-weight: bold;
 }

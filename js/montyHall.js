@@ -7,118 +7,172 @@ let instructions1Element = null;
 let instructions2Element = null;
 let winloseElement = null;
 let doors = null;
-let btnStart = null;    
+let btnStart = null;
 let totalGames = 0;
 let totalStickWins = 0;
 let totalSwitchWins = 0;
 let totalStickGames = 0;
 let totalSwitchGames = 0;
 
+// objects are reference types, so we can use them to store game statistics
+let gameStatistics = {
+  totalGames: 0,
+  totalStickWins: 0,
+  totalSwitchWins: 0,
+  totalStickGames: 0,
+  totalSwitchGames: 0,
+};
+// and to track the game details - which we can then save to a database or use in some other way
+let gameRecord = {
+  firstChoice: -1,
+  secondChoice: -1,
+  doorWithCar: -1,
+
+  isWin: () => this.secondChoice === this.doorWithCar,
+  isStick: function () {
+    return this.firstChoice === this.secondChoice;
+  },
+};
+
+let myarray = ["red", "green", "blue", "yellow"];
+function findIndexOf(color) {
+  for (let i = 0; i < myarray.length; i++) {
+    // console.log(`Element at index ${i} is ${myarray[i]}`);
+    let value = myarray[i];
+    if (value === color) {
+      console.log(`Found ${color} at index ${i}`);
+      return i; // Return the index of the color
+    }
+  }
+  console.log(`${color} not found in the array`);
+  return -1; // Return -1 if the color is not found
+}
+
+let numberArray = [10, 20, 30, 40, 50];
+function addNumber(number) {
+  for (let i = 0; i < numberArray.length; i++) {
+    if (numberArray[i] === number) {
+      console.log(`Number ${number} already exists at index ${i}`);
+    } else if (number < numberArray[i]) {
+      numberArray[i] = number;
+    } else {
+    }
+  }
+}
+
 function playNow() {
-    document.getElementById("playField").style.display = "block";
+  document.getElementById("playField").style.display = "block";
 
-    instructions1Element = document.getElementById("instructions1");
-    instructions2Element = document.getElementById("instructions2");
-    winloseElement = document.getElementById("winLose");
-    doors = document.querySelectorAll('.doors');
-    btnStart = document.getElementById("btnStart");
-    btnStart.textContent = "Play Again!"; 
-    btnStart.disabled = true; // Disable the button to prevent multiple clicks
+  instructions1Element = document.getElementById("instructions1");
+  instructions2Element = document.getElementById("instructions2");
+  winloseElement = document.getElementById("winLose");
+  doors = document.querySelectorAll(".doors");
+  btnStart = document.getElementById("btnStart");
+  btnStart.textContent = "Play Again!";
+  btnStart.disabled = true; // Disable the button to prevent multiple clicks
 
-    doorNumberWithCar = Math.floor(Math.random() * 3) + 1; // Randomly select a door for the car
-    choice1 = -1; // Reset choices
-    choice2 = -1; // Reset choices
-    console.log(`Car is behind door number ${doorNumberWithCar}`);
-    
-    clearDoors(); // Clear previous door contents
-    instructions1Element.textContent = "Click on a door: 1, 2, or 3.";
-    instructions2Element.textContent = "After you make your first choice, a goat will be revealed behind one of the other doors.";
-    winloseElement.textContent = "";
+  doorNumberWithCar = Math.floor(Math.random() * 3) + 1; // Randomly select a door for the car
+  choice1 = -1; // Reset choices
+  choice2 = -1; // Reset choices
+  console.log(`Car is behind door number ${doorNumberWithCar}`);
+
+  clearDoors(); // Clear previous door contents
+  instructions1Element.textContent = "Click on a door: 1, 2, or 3.";
+  instructions2Element.textContent =
+    "After you make your first choice, a goat will be revealed behind one of the other doors.";
+  winloseElement.textContent = "";
 }
 
 function clearDoors() {
-  
-    doors.forEach(door => {
-        door.textContent = "????";
-        door.classList.remove("revealed", "car");
-    });
+  doors.forEach((door) => {
+    door.textContent = "????";
+    door.classList.remove("revealed", "car");
+  });
 }
-
 function chooseDoor(doorNumber) {
-    if (choice1 === -1) {
-        makeFirstChoice(doorNumber);
-    } else {
-        makeSecondChoice(doorNumber);
-    }
+  if (choice1 === -1) {
+    makeFirstChoice(doorNumber);
+  } else {
+    makeSecondChoice(doorNumber);
+  }
 }
 
 function makeFirstChoice(doorNumber) {
-    choice1 = doorNumber; // First choice
-    console.log(`First choice is door number ${choice1}`);
+  choice1 = doorNumber; // First choice
+  console.log(`First choice is door number ${choice1}`);
 
-    // Reveal a goat behind one of the other doors
-    const otherDoors = [1, 2, 3].filter(num => num !== choice1 && num !== doorNumberWithCar);
-    const numDoorToReveal = otherDoors[Math.floor(Math.random() * otherDoors.length)];
-    instructions1Element.textContent = `You chose door number ${choice1}. A goat has been revealed behind door number ${numDoorToReveal}.`;
-    instructions2Element.textContent = ` If you wish to stick with your original choice, click on door number ${choice1}.`
-        + ` If you want to switch, click on door number ${[1, 2, 3].find(num => num !== choice1 && num !== numDoorToReveal)}`;
-    const revealedDoor = document.getElementById(`door${numDoorToReveal}`);
-    revealedDoor.disabled = true;
-    revealedDoor.classList.add("revealed");
-    revealedDoor.textContent = "Goat";
+  // Reveal a goat behind one of the other doors
+  const doorNumbers = [1, 2, 3].filter(
+    (num) => num !== choice1 && num !== doorNumberWithCar
+  );
+  const numDoorToReveal =
+    doorNumbers[Math.floor(Math.random() * doorNumbers.length)];
+  instructions1Element.textContent = `You chose door number ${choice1}. A goat has been revealed behind door number ${numDoorToReveal}.`;
+  instructions2Element.textContent =
+    ` If you wish to stick with your original choice, click on door number ${choice1}.` +
+    ` If you want to switch, click on door number ${[1, 2, 3].find(
+      (num) => num !== choice1 && num !== numDoorToReveal
+    )}`;
+  const revealedDoor = document.getElementById(`door${numDoorToReveal}`);
+  revealedDoor.disabled = true;
+  revealedDoor.classList.add("revealed");
+  revealedDoor.textContent = "Goat";
 }
 
 function makeSecondChoice(doorNumber) {
-    choice2 = doorNumber; // Second choice
-    console.log(`Second choice is door number ${choice2}`);
+  choice2 = doorNumber; // Second choice
+  console.log(`Second choice is door number ${choice2}`);
 
-    instructions1Element.textContent = `The car was behind door number ${choice2}.`;
-    totalGames++;
-    
-    if (choice2 === choice1) {
-        instructions2Element.textContent = `You stuck with your original choice of door number ${choice1}.`;
-        totalStickGames++;
-    } else {
-        instructions2Element.textContent = `You switched from door number ${choice1} to door number ${choice2}.`;
-        totalSwitchGames++;
-    }
+  instructions1Element.textContent = `The car was behind door number ${choice2}.`;
+  totalGames++;
 
-    if (choice2 === doorNumberWithCar) {
-        winloseElement.textContent = "You win!";
-    } else {
-        winloseElement.textContent = "You lose!";
-    }
+  if (choice2 === choice1) {
+    instructions2Element.textContent = `You stuck with your original choice of door number ${choice1}.`;
+    totalStickGames++;
+  } else {
+    instructions2Element.textContent = `You switched from door number ${choice1} to door number ${choice2}.`;
+    totalSwitchGames++;
+  }
 
-    if (choice2 === doorNumberWithCar && choice1 === doorNumberWithCar) {
-        totalStickWins++;
-    } else if (choice2 === doorNumberWithCar && choice1 !== doorNumberWithCar) {
-        totalSwitchWins++;
-    }
-    updateStatistics();
+  if (choice2 === doorNumberWithCar) {
+    winloseElement.textContent = "You win!";
+  } else {
+    winloseElement.textContent = "You lose!";
+  }
 
-    const doorWithCar = document.getElementById(`door${doorNumberWithCar}`);
-    doorWithCar.textContent = "Car";
-    doorWithCar.classList.add("car");
-    const otherDoors = [1, 2, 3].filter(num => num !== doorNumberWithCar);
-    otherDoors.forEach(num => {
-        const door = document.getElementById(`door${num}`);
-        door.textContent = "Goat";
-        door.classList.add("revealed");
-    });
-    btnStart.disabled = false; // Enable the start button for replay
-    document.getElementById("statistics").style.display = "block";  
+  if (choice2 === doorNumberWithCar && choice1 === doorNumberWithCar) {
+    totalStickWins++;
+  } else if (choice2 === doorNumberWithCar && choice1 !== doorNumberWithCar) {
+    totalSwitchWins++;
+  }
+  updateStatistics();
+
+  const doorWithCar = document.getElementById(`door${doorNumberWithCar}`);
+  doorWithCar.textContent = "Car";
+  doorWithCar.classList.add("car");
+  const otherDoors = [1, 2, 3].filter((num) => num !== doorNumberWithCar);
+  otherDoors.forEach((num) => {
+    const door = document.getElementById(`door${num}`);
+    door.textContent = "Goat";
+    door.classList.add("revealed");
+  });
+  btnStart.disabled = false; // Enable the start button for replay
+  document.getElementById("statistics").style.display = "block";
 }
 function updateStatistics() {
-    const totalWins = totalStickWins + totalSwitchWins;
-    const winPercentageStick = totalStickWins / totalStickGames * 100 || 0;
-    const winPercentageSwitch = totalSwitchWins / totalSwitchGames * 100 || 0;
+  const totalWins = totalStickWins + totalSwitchWins;
+  const winPercentageStick = (totalStickWins / totalStickGames) * 100 || 0;
+  const winPercentageSwitch = (totalSwitchWins / totalSwitchGames) * 100 || 0;
 
-    document.getElementById("totalGames").textContent = totalGames;
-    document.getElementById("totalStickWins").textContent = totalStickWins;
-    document.getElementById("totalSwitchWins").textContent = totalSwitchWins;
-    document.getElementById("totalStickGames").textContent = totalStickGames;
-    document.getElementById("totalSwitchGames").textContent = totalSwitchGames;
-    document.getElementById("winPercentageStick").textContent = winPercentageStick.toFixed(1) + "%";
-    document.getElementById("winPercentageSwitch").textContent = winPercentageSwitch.toFixed(1) + "%";
-    document.getElementById("overallWinPercentage").textContent = (totalWins / totalGames * 100 || 0).toFixed(1) + "%";
+  document.getElementById("totalGames").textContent = totalGames;
+  document.getElementById("totalStickWins").textContent = totalStickWins;
+  document.getElementById("totalSwitchWins").textContent = totalSwitchWins;
+  document.getElementById("totalStickGames").textContent = totalStickGames;
+  document.getElementById("totalSwitchGames").textContent = totalSwitchGames;
+  document.getElementById("winPercentageStick").textContent =
+    winPercentageStick.toFixed(1) + "%";
+  document.getElementById("winPercentageSwitch").textContent =
+    winPercentageSwitch.toFixed(1) + "%";
+  document.getElementById("overallWinPercentage").textContent =
+    ((totalWins / totalGames) * 100 || 0).toFixed(1) + "%";
 }
