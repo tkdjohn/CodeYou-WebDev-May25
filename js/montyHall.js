@@ -1,6 +1,6 @@
 "use strict";
 
-let winloseElement = null;
+// Monty Hall Game Implementation
 let doors = null;
 
 // objects are reference types, so we can use them to store game statistics
@@ -16,7 +16,6 @@ let stats = {
   winPercentageSwitch: () => (stats.totalSwitchWins / stats.totalSwitchGames) * 100 || 0,
 };
 
-
 // and to track the game details - which we can then save to a database or use in some other way
 let data = {
   firstChoice: -1,
@@ -29,12 +28,9 @@ let data = {
   },
 };
 
-
-
 function playNow() {
   document.getElementById("playField").style.display = "block";
 
-  winloseElement = document.getElementById("winLose");
   doors = document.querySelectorAll(".doors");
 
   btnStart.textContent = "Play Again!";
@@ -48,7 +44,7 @@ function playNow() {
   clearDoors(); // Clear previous door contents
   instructions1.textContent = "Click on a door: 1, 2, or 3.";
   instructions2.textContent = "After you make your first choice, a goat will be revealed behind one of the other doors.";
-  winloseElement.textContent = ""; // same as winLose.textContent = "";
+   document.getElementById("winLose").textContent = ""; // same as winLose.textContent = "";
 }
 
 function clearDoors() {
@@ -97,23 +93,24 @@ function makeSecondChoice(doorNumber) {
   if (data.choice2 === data.choice1) {
     instructions2.textContent = `You stuck with your original choice of door number ${data.choice1}.`;
     stats.totalStickGames++;
+    if (data.choice2 === data.doorNumberWithCar) {
+      stats.totalStickWins++;
+      winLose.textContent = "You win!";
+    } else {
+      winLose.textContent = "You lose!";
+    }
   } else {
     instructions2.textContent = `You switched from door number ${data.choice1} to door number ${data.choice2}.`;
     stats.totalSwitchGames++;
+    if (data.choice2 === data.doorNumberWithCar) {
+      stats.totalSwitchWins++;
+      winLose.textContent = "You win!";
+    } else {
+      winLose.textContent = "You lose!";
+    }
   }
 
-  if (data.choice2 === data.doorNumberWithCar) {
-    winloseElement.textContent = "You win!";
-  } else {
-    winloseElement.textContent = "You lose!";
-  }
-
-  if (data.choice2 === data.doorNumberWithCar && data.choice1 === data.doorNumberWithCar) {
-    stats.totalStickWins++;
-  } else if (data.choice2 === data.doorNumberWithCar && data.choice1 !== data.doorNumberWithCar) {
-    stats.totalSwitchWins++;
-  }
-  updateStatistics();
+  displayStatistics();
 
   const doorWithCar = document.getElementById(`door${data.doorNumberWithCar}`);
   doorWithCar.textContent = "Car";
@@ -128,7 +125,7 @@ function makeSecondChoice(doorNumber) {
   document.getElementById("statistics").style.display = "block";
 }
 
-function updateStatistics() {
+function displayStatistics() {
   document.getElementById("totalGames").textContent = stats.totalGames;
   document.getElementById("totalStickWins").textContent = stats.totalStickWins;
   document.getElementById("totalSwitchWins").textContent = stats.totalSwitchWins;
