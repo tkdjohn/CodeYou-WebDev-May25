@@ -42,9 +42,20 @@ function findIndexOf(color) {
   console.log(`${color} not found in the array`);
   return -1; // Return -1 if the color is not found
 }
+// let my_object = new Object();
+// let my_object2 = new Object();
+// let my_object3 = new Object();
 
-let numberArray = [10, 20, 30, 40, 50];
+// let numberArray = [10, 20, 30, 40, 50];
+// let objectArray = [ my_object, my_object2 , my_object3, new Object() ];
+// x = numberArray.pop(); // [10, 20, 30, 40 ]
+// numberArray.push("100"); // [10, 20, 30, 40, 100 ]
+// y = numberArray.indexOf(50);
 function addNumber(number) {
+
+  number = number ?? 0;
+  number ??= 0;
+  
   for (let i = 0; i < numberArray.length; i++) {
     if (numberArray[i] === number) {
       console.log(`Number ${number} already exists at index ${i}`);
@@ -53,4 +64,63 @@ function addNumber(number) {
     } else {
     }
   }
+  
+  String.forEach((char, index ) => {
+    console.log(`the charater at incex ${index} is ${char}`);
+  });
+
+  numberArray.forEach((num, index) => { 
+    if (num === number) {
+      console.log(`Number ${number} already exists at index ${i}`);
+    } else if (number < num) {
+      num = number;
+    } else {
+    }
+  });
+
 }
+
+
+
+
+function runTestCode () {
+    console.log("Running test code");
+    const testString = "Hello, World!";
+    console.log(findCharAtIndex(testString, 7)); // Should output "W"
+    console.log(findCharAtIndex(testString, 13)); // Should output null
+    console.log(findCharAtIndex(testString, -1)); // Should output null
+
+    toggleDarkMode(); // Test dark mode toggle
+    findIndexOf("green"); // Should find green at index 1
+    addNumber(25); // Test adding number to array
+}
+
+// i++;
+// ++i;
+
+// i = 1;
+// x = i++;// x = 1; i => 2;
+// console.log(`x = ${x}, i = ${i}`); // x = 1, i = 2
+// x = i; i = i + 1;
+
+// x = ++i; // i => 2; x = 2;
+// console.log(`x = ${x}, i = ${i}`); // x = 2, i = 2
+// i = i + 1; x = i;
+
+// let x = "100";
+// x == 100;
+// x === 100;
+
+// let nx = null;
+// let zx = nx ?? "it's null dude";
+// let y = 0;
+
+// const yorZ = (z === null || y === undefined);
+// if ( x === null && yorZ) {
+//   y = 0;
+// } else {
+//   y = 6;
+// }
+
+// let y1 = (x === null) ? 0 : 6;
+
