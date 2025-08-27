@@ -30,7 +30,7 @@ let data = {
 
 function playNow() {
   document.getElementById("playField").style.display = "block";
-
+  
   doors = document.querySelectorAll(".doors");
 
   btnStart.textContent = "Play Again!";
