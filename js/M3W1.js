@@ -47,3 +47,16 @@ const person = {
         return this.FirstName + ' ' + this.LastName;
     }
 }
+
+function deepCloneObject(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  const clone = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = deepCloneObject(obj[key]);
+    }
+  }
+  return clone;
+}
