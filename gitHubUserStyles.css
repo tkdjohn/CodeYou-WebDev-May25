@@ -1,0 +1,63 @@
+@import url("./reset.css");
+
+body {
+    background-color: rgba(176, 224, 230, .2);
+}
+
+.header {
+    background-color: powderblue;
+    padding: 1rem;
+    text-align: center;
+}
+
+.btn {
+    background-color: seagreen;
+    color: white;
+    padding: .5rem;
+    margin: .25rem;
+    border-radius: .5rem;;
+}
+
+.users {
+    width: 90dvw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-card {
+    border: 1px solid rgb(54, 69, 71);
+    padding: 2rem;
+    border-radius: .5rem;
+    margin: 1rem;
+    box-shadow: -.25rem .25rem .5rem rgb(54, 69, 71);
+}
+
+/* TABLETS */
+@media screen and (min-width: 600px) {
+    /* .users { */
+        /* display: grid;
+        grid-template-columns: 1fr 1fr; */
+        /* width: 90dvw; */
+    /* } */
+    .user-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: .25fr;
+    }
+    }
+
+/* DESKTOP */
+@media screen and (min-width: 990px) {
+    .users {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: stretch;
+        max-width: 60rem;
+    }
+    .user-card{
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+    }
+}
